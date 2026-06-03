@@ -754,12 +754,11 @@
           ╚══════════════════════════════════════════════════════════════╝
         -->
         <form
-          class="waitlist-form"
-          action="http://eepurl.com/wPqysEM2t5"
-          method="post"
-          target="_blank"
-          id="waitlistForm"
-          novalidate
+  	  class="waitlist-form"
+ 	  action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
+          method="POST"
+          target="hidden_iframe"
+          onsubmit="window.formSubmitted=true;"
         >
           <!-- Mailchimp hidden bot field - do not remove -->
           <div style="position:absolute;left:-5000px;" aria-hidden="true">
@@ -988,11 +987,10 @@
         <div class="waitlist-form-wrap" style="margin-bottom: 16px;">
           <form
             class="waitlist-form"
-            action="http://eepurl.com/wPqysEM2t5"
-            method="post"
-            target="_blank"
-            id="waitlistForm2"
-            novalidate
+            action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="window.formSubmitted=true;"
           >
             <div style="position:absolute;left:-5000px;" aria-hidden="true">
               <input type="text" name="b_PLACEHOLDER_REPLACE_WITH_YOUR_VALUE" tabindex="-1" value="">
@@ -1038,49 +1036,28 @@
 </div><!-- /page -->
 
 <script>
-  // ── FAQ toggle ──────────────────────────────────────────
-  function toggleFaq(el) {
-    const item = el.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
+  window.formSubmitted = false;
 
-  // ── Scroll reveal ───────────────────────────────────────
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // ── Form UX enhancement ─────────────────────────────────
-  // NOTE: With Mailchimp action URL, the form submits to Mailchimp
-  // This adds a local success state after submission
-  ['waitlistForm', 'waitlistForm2'].forEach((formId, idx) => {
+  function handleRedirect(formId) {
     const form = document.getElementById(formId);
     if (!form) return;
-    form.addEventListener('submit', function(e) {
+
+    form.addEventListener("submit", function () {
       const emailInput = form.querySelector('input[type="email"]');
-      const email = emailInput ? emailInput.value : '';
-      // Let Mailchimp handle the actual submission (opens in new tab via target="_blank")
-      // Show local success state
+      const email = emailInput ? emailInput.value : "";
+
       setTimeout(() => {
-        form.style.display = 'none';
-        const msg = document.getElementById(idx === 0 ? 'successMsg' : 'successMsg2');
-        if (msg) {
-          msg.style.display = 'block';
-          const emailSpan = msg.querySelector('#confirmedEmail');
-          if (emailSpan) emailSpan.textContent = email;
-          else msg.innerHTML = `✓ &nbsp;You're on the list! We'll be in touch at <strong>${email}</strong>`;
+        if (window.formSubmitted) {
+          window.location.href =
+            "/thank-you.html?email=" + encodeURIComponent(email);
         }
-      }, 800);
+      }, 900);
     });
-  });
+  }
+
+  handleRedirect("waitlistForm");
+  handleRedirect("waitlistForm2");
 </script>
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
