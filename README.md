@@ -11,7 +11,7 @@ We're building workflow automation software for small and medium-sized businesse
 - Product design
 
 ## Connect
-- Soviic.com
+- [Soviic.com](https://soviic.com)
 - Twitter / X:   https://x.com/soviicapp      (@soviicapp)
 - LinkedIn:      https://www.linkedin.com/in/keith-williams-04414490/
 - Instagram:     https://www.instagram.com/soviic2026/ (@soviic2026)
