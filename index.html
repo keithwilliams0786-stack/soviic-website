@@ -754,11 +754,11 @@
           ╚══════════════════════════════════════════════════════════════╝
         -->
         <form
-  	  class="waitlist-form"
- 	  action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
+          id="waitlistForm"
+          class="waitlist-form"
+          action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
           method="POST"
           target="hidden_iframe"
-          onsubmit="window.formSubmitted=true;"
         >
           <!-- Mailchimp hidden bot field - do not remove -->
           <div style="position:absolute;left:-5000px;" aria-hidden="true">
@@ -986,14 +986,14 @@
 
         <div class="waitlist-form-wrap" style="margin-bottom: 16px;">
           <form
+            id="waitlistForm"
             class="waitlist-form"
             action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
             method="POST"
             target="hidden_iframe"
-            onsubmit="window.formSubmitted=true;"
-          >
+>
             <div style="position:absolute;left:-5000px;" aria-hidden="true">
-              <input type="text" name="b_PLACEHOLDER_REPLACE_WITH_YOUR_VALUE" tabindex="-1" value="">
+              <input type="text" name="b_86789b176f8105c8c6960b59d_36f74ef069" tabindex="-1" value="">
             </div>
             <input
               class="waitlist-input"
@@ -1036,27 +1036,21 @@
 </div><!-- /page -->
 
 <script>
-  window.formSubmitted = false;
-
-  function handleRedirect(formId) {
+  function setupRedirect(formId) {
     const form = document.getElementById(formId);
     if (!form) return;
 
     form.addEventListener("submit", function () {
-      const emailInput = form.querySelector('input[type="email"]');
-      const email = emailInput ? emailInput.value : "";
+      const email = form.querySelector('input[type="email"]').value;
 
       setTimeout(() => {
-        if (window.formSubmitted) {
-          window.location.href =
-            "/thank-you.html?email=" + encodeURIComponent(email);
-        }
-      }, 900);
+        window.location.href = "/thank-you.html?email=" + encodeURIComponent(email);
+      }, 800);
     });
   }
 
-  handleRedirect("waitlistForm");
-  handleRedirect("waitlistForm2");
+  setupRedirect("waitlistForm");
+  setupRedirect("waitlistForm2");
 </script>
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
