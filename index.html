@@ -746,25 +746,15 @@
 
       <!-- WAITLIST FORM -->
       <div class="waitlist-form-wrap">
-        <!--
-          ╔══════════════════════════════════════════════════════════════╗
-          ║  MAILCHIMP SETUP INSTRUCTIONS                                ║
-          ║  Replace the action URL below with your Mailchimp form URL:  ║
-          ║  Mailchimp → Audience → Signup Forms → Embedded Forms        ║
-          ║  Copy the action="..." value and paste it below              ║
-          ╚══════════════════════════════════════════════════════════════╝
-        -->
+        <!-- Mailchimp waitlist form - soviic.us19 -->
         <form
           class="waitlist-form"
-          action="http://eepurl.com/wPqysEM2t5"
-          method="post"
-          target="_blank"
           id="waitlistForm"
           novalidate
         >
-          <!-- Mailchimp hidden bot field - do not remove -->
+          <!-- Mailchimp honeypot bot field - do not remove -->
           <div style="position:absolute;left:-5000px;" aria-hidden="true">
-            <input type="text" name="b_PLACEHOLDER_REPLACE_WITH_YOUR_VALUE" tabindex="-1" value="">
+            <input type="text" name="b_86789b176f8105c8c6960b59d_36f74ef069" tabindex="-1" value="">
           </div>
           <input
             class="waitlist-input"
@@ -779,7 +769,7 @@
             Join Waitlist →
           </button>
         </form>
-        <div class="success-msg" id="successMsg">
+        <div class="success-msg" id="successMsg" style="display:none;">
           ✓ &nbsp;You're on the list. We'll be in touch at <strong id="confirmedEmail"></strong>
         </div>
       </div>
@@ -989,14 +979,11 @@
         <div class="waitlist-form-wrap" style="margin-bottom: 16px;">
           <form
             class="waitlist-form"
-            action="http://eepurl.com/wPqysEM2t5"
-            method="post"
-            target="_blank"
             id="waitlistForm2"
             novalidate
           >
             <div style="position:absolute;left:-5000px;" aria-hidden="true">
-              <input type="text" name="b_PLACEHOLDER_REPLACE_WITH_YOUR_VALUE" tabindex="-1" value="">
+              <input type="text" name="b_86789b176f8105c8c6960b59d_36f74ef069" tabindex="-1" value="">
             </div>
             <input
               class="waitlist-input"
@@ -1028,7 +1015,7 @@
         </div>
         <div class="footer-links">
           <a href="mailto:hello@soviic.com">hello@soviic.com</a>
-          <a href="#" style="color:var(--muted);font-size:0.78rem;pointer-events:none;">3245 Main St Ste 235, Frisco TX 75034</a>
+          <a href="#" style="color:var(--muted);font-size:0.78rem;pointer-events:none;">3245 Main St Ste 235-609, Frisco TX 75034</a>
           <a href="https://linkedin.com/company/soviic" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://x.com/soviicapp" target="_blank" rel="noopener">Twitter / X</a>
         </div>
@@ -1059,27 +1046,74 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ── Form UX enhancement ─────────────────────────────────
-  // NOTE: With Mailchimp action URL, the form submits to Mailchimp
-  // This adds a local success state after submission
-  ['waitlistForm', 'waitlistForm2'].forEach((formId, idx) => {
+  // ── Waitlist form submission ─────────────────────────────
+  // Submits silently to Mailchimp in background via JSONP
+  // then redirects to thank-you.html with email in URL
+
+  const MAILCHIMP_URL = 'https://soviic.us19.list-manage.com/subscribe/post-json?u=86789b176f8105c8c6960b59d&id=36f74ef069&f_id=007bb3e4f0';
+
+  function submitToMailchimp(email, formEl, msgEl) {
+    // Validate email
+    if (!email || !email.includes('@')) {
+      formEl.querySelector('input[type="email"]').focus();
+      return;
+    }
+
+    // Show loading state on button
+    const btn = formEl.querySelector('button');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = 'Joining...';
+    btn.disabled = true;
+
+    // Build JSONP callback name
+    const callbackName = 'mcCallback_' + Date.now();
+
+    // Build URL
+    const url = MAILCHIMP_URL
+      + '&EMAIL=' + encodeURIComponent(email)
+      + '&c=' + callbackName;
+
+    // Create script tag for JSONP
+    const script = document.createElement('script');
+    script.src = url;
+
+    // Timeout fallback — if Mailchimp doesn't respond in 8 seconds
+    // still redirect (assume success to avoid blocking user)
+    const timeout = setTimeout(() => {
+      cleanup();
+      window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
+    }, 8000);
+
+    // JSONP callback
+    window[callbackName] = function(data) {
+      clearTimeout(timeout);
+      cleanup();
+      // Always redirect to thank-you — even on "already subscribed" 
+      // this is a good outcome for a waitlist
+      window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
+    };
+
+    function cleanup() {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      delete window[callbackName];
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+
+    document.head.appendChild(script);
+  }
+
+  ['waitlistForm', 'waitlistForm2'].forEach((formId) => {
     const form = document.getElementById(formId);
     if (!form) return;
     form.addEventListener('submit', function(e) {
+      e.preventDefault();
       const emailInput = form.querySelector('input[type="email"]');
-      const email = emailInput ? emailInput.value : '';
-      // Let Mailchimp handle the actual submission (opens in new tab via target="_blank")
-      // Show local success state
-      setTimeout(() => {
-        form.style.display = 'none';
-        const msg = document.getElementById(idx === 0 ? 'successMsg' : 'successMsg2');
-        if (msg) {
-          msg.style.display = 'block';
-          const emailSpan = msg.querySelector('#confirmedEmail');
-          if (emailSpan) emailSpan.textContent = email;
-          else msg.innerHTML = `✓ &nbsp;You're on the list! We'll be in touch at <strong>${email}</strong>`;
-        }
-      }, 800);
+      const email = emailInput ? emailInput.value.trim() : '';
+      const msgEl = formId === 'waitlistForm'
+        ? document.getElementById('successMsg')
+        : document.getElementById('successMsg2');
+      submitToMailchimp(email, form, msgEl);
     });
   });
 </script>
