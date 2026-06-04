@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soviic — You're on the Waitlist</title>
+  <meta name="description" content="You've joined the Soviic early access waitlist. We'll be in touch soon." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0B1929;
+      --navy-mid:    #0F2236;
+      --navy-light:  #162D45;
+      --cyan:        #22D3EE;
+      --cyan-dim:    #0EA5E9;
+      --cyan-glow:   rgba(34,211,238,0.15);
+      --cyan-subtle: rgba(34,211,238,0.07);
+      --white:       #F0F8FF;
+      --muted:       #7CA3C0;
+      --border:      rgba(34,211,238,0.12);
+      --card-bg:     rgba(15,34,54,0.75);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Background ─────────────────────────────── */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .bg-glow-top {
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(34,211,238,0.1) 0%, transparent 70%);
+    }
+    .bg-glow-bottom {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(14,165,233,0.07) 0%, transparent 70%);
+    }
+
+    /* ── Card ───────────────────────────────────── */
+    .page { position: relative; z-index: 1; width: 100%; display: flex; justify-content: center; }
+
+    .card {
+      max-width: 680px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 52px 48px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Badge ──────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--cyan);
+      background: var(--cyan-subtle);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* ── Heading ────────────────────────────────── */
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    h1 .accent { color: var(--cyan); }
+
+    .confirmed-email {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    .confirmed-email strong {
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* ── Divider ────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 28px 0;
+    }
+
+    /* ── Message body ───────────────────────────── */
+    .message-body {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .message-body p { margin-bottom: 14px; }
+    .message-body p:last-child { margin-bottom: 0; }
+    .message-body strong { color: var(--white); font-weight: 600; }
+
+    .bullet-list {
+      list-style: none;
+      margin: 12px 0 16px;
+    }
+    .bullet-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding: 6px 0 6px 20px;
+      position: relative;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .bullet-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    /* ── Question callout ───────────────────────── */
+    .question-box {
+      background: var(--cyan-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .question-box p {
+      font-size: 0.88rem;
+      color: var(--white);
+      line-height: 1.65;
+      margin: 0;
+    }
+    .question-box .q-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    /* ── CTA button ─────────────────────────────── */
+    .cta-wrap {
+      text-align: center;
+      margin: 32px 0 28px;
+    }
+    .btn-home {
+      display: inline-block;
+      background: var(--cyan);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 12px;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: all 0.2s ease;
+    }
+    .btn-home:hover {
+      background: #67E8F9;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(34,211,238,0.2);
+    }
+
+    /* ── Social links ───────────────────────────── */
+    .social-section {
+      margin-top: 4px;
+    }
+    .social-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 8px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(34,211,238,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 400;
+      transition: all 0.2s ease;
+    }
+    .social-link:hover {
+      color: var(--cyan);
+      border-color: rgba(34,211,238,0.3);
+      background: rgba(34,211,238,0.07);
+      transform: translateY(-1px);
+    }
+    .social-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer note ────────────────────────────── */
+    .footer-note {
+      margin-top: 28px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.02em;
+      opacity: 0.6;
+    }
+
+    /* ── Responsive ─────────────────────────────── */
+    @media (max-width: 600px) {
+      .card { padding: 36px 24px; }
+      .social-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-glow-top"></div>
+  <div class="bg-glow-bottom"></div>
+</div>
+
+<div class="page">
+  <div class="card">
+
+    <!-- Badge -->
+    <div class="badge">
+      <span class="badge-dot"></span>
+      You're in
+    </div>
+
+    <!-- Heading -->
+    <h1>Welcome to <span class="accent">Soviic</span></h1>
+
+    <p class="confirmed-email">
+      We've added <strong id="email-display">your email</strong> to the early access waitlist.
+    </p>
+
+    <div class="divider"></div>
+
+    <!-- Message -->
+    <div class="message-body">
+      <p>Thank you for joining the <strong>Soviic Early Access</strong> waitlist.</p>
+
+      <p>Soviic is being built for small businesses that are tired of disconnected tools, spreadsheet chaos, and repetitive manual work. Most businesses don't need more software — they need the systems they already use to work together better.</p>
+
+      <p><strong>Our goal is simple:</strong></p>
+
+      <ul class="bullet-list">
+        <li>Connect your existing tools and workflows</li>
+        <li>Reduce repetitive manual tasks across your team</li>
+        <li>Prevent information from falling through the cracks</li>
+        <li>Make automation practical for real small businesses — no IT team required</li>
+      </ul>
+
+      <p>As we build Soviic, we'll occasionally share product updates, workflow ideas, and opportunities to participate in early testing. You'll be among the first to know when early access becomes available.</p>
+    </div>
+
+    <!-- Question callout -->
+    <div class="question-box">
+      <div class="q-label">One quick question</div>
+      <p>What is the most repetitive or frustrating process in your business today? Simply reply to our welcome email and let us know — your answer directly shapes what we build first.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-wrap">
+      <a class="btn-home" href="/">← Back to soviic.com</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Social links -->
+    <div class="social-section">
+      <div class="social-label">Follow the build</div>
+      <div class="social-grid">
+        <a class="social-link" href="https://x.com/soviicapp" target="_blank" rel="noopener">
+          <span class="social-icon">𝕏</span> Twitter / X
+        </a>
+        <a class="social-link" href="https://www.linkedin.com/in/keith-williams-04414490" target="_blank" rel="noopener">
+          <span class="social-icon">💼</span> LinkedIn
+        </a>
+        <a class="social-link" href="https://www.instagram.com/soviic2026" target="_blank" rel="noopener">
+          <span class="social-icon">📸</span> Instagram
+        </a>
+        <a class="social-link" href="https://www.facebook.com/profile.php?id=61590826460678" target="_blank" rel="noopener">
+          <span class="social-icon">👥</span> Facebook
+        </a>
+        <a class="social-link" href="https://www.youtube.com/@soviic" target="_blank" rel="noopener">
+          <span class="social-icon">▶️</span> YouTube
+        </a>
+        <a class="social-link" href="https://github.com/keithwilliams0786-stack/soviic-website" target="_blank" rel="noopener">
+          <span class="social-icon">⌥</span> GitHub
+        </a>
+        <a class="social-link" href="https://www.producthunt.com/@keith_williams10" target="_blank" rel="noopener">
+          <span class="social-icon">🚀</span> Product Hunt
+        </a>
+        <a class="social-link" href="https://www.reddit.com/user/soviic/" target="_blank" rel="noopener">
+          <span class="social-icon">🔶</span> Reddit
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer-note">
+      soviic.com &nbsp;·&nbsp; hello@soviic.com &nbsp;·&nbsp; Building in public
+    </p>
+
+  </div>
+</div>
+
+<script>
+  // Pull email from URL parameter and display it
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get('email');
+  if (email) {
+    document.getElementById('email-display').textContent = decodeURIComponent(email);
+  }
+</script>
+
+</body>
+</html>
