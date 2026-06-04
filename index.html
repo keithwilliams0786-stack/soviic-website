@@ -754,11 +754,12 @@
           ╚══════════════════════════════════════════════════════════════╝
         -->
         <form
-          id="waitlistForm"
           class="waitlist-form"
-          action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
-          method="POST"
-          target="hidden_iframe"
+          action="http://eepurl.com/wPqysEM2t5"
+          method="post"
+          target="_blank"
+          id="waitlistForm"
+          novalidate
         >
           <!-- Mailchimp hidden bot field - do not remove -->
           <div style="position:absolute;left:-5000px;" aria-hidden="true">
@@ -986,14 +987,15 @@
 
         <div class="waitlist-form-wrap" style="margin-bottom: 16px;">
           <form
-            id="waitlistForm"
             class="waitlist-form"
-            action="https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069"
-            method="POST"
-            target="hidden_iframe"
->
+            action="http://eepurl.com/wPqysEM2t5"
+            method="post"
+            target="_blank"
+            id="waitlistForm2"
+            novalidate
+          >
             <div style="position:absolute;left:-5000px;" aria-hidden="true">
-              <input type="text" name="b_86789b176f8105c8c6960b59d_36f74ef069" tabindex="-1" value="">
+              <input type="text" name="b_PLACEHOLDER_REPLACE_WITH_YOUR_VALUE" tabindex="-1" value="">
             </div>
             <input
               class="waitlist-input"
@@ -1036,22 +1038,49 @@
 </div><!-- /page -->
 
 <script>
-  function setupRedirect(formId) {
-    const form = document.getElementById(formId);
-    if (!form) return;
-
-    form.addEventListener("submit", function () {
-      const email = form.querySelector('input[type="email"]').value;
-
-      setTimeout(() => {
-        window.location.href = "/thank-you.html?email=" + encodeURIComponent(email);
-      }, 800);
-    });
+  // ── FAQ toggle ──────────────────────────────────────────
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 
-  setupRedirect("waitlistForm");
-  setupRedirect("waitlistForm2");
+  // ── Scroll reveal ───────────────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Form UX enhancement ─────────────────────────────────
+  // NOTE: With Mailchimp action URL, the form submits to Mailchimp
+  // This adds a local success state after submission
+  ['waitlistForm', 'waitlistForm2'].forEach((formId, idx) => {
+    const form = document.getElementById(formId);
+    if (!form) return;
+    form.addEventListener('submit', function(e) {
+      const emailInput = form.querySelector('input[type="email"]');
+      const email = emailInput ? emailInput.value : '';
+      // Let Mailchimp handle the actual submission (opens in new tab via target="_blank")
+      // Show local success state
+      setTimeout(() => {
+        form.style.display = 'none';
+        const msg = document.getElementById(idx === 0 ? 'successMsg' : 'successMsg2');
+        if (msg) {
+          msg.style.display = 'block';
+          const emailSpan = msg.querySelector('#confirmedEmail');
+          if (emailSpan) emailSpan.textContent = email;
+          else msg.innerHTML = `✓ &nbsp;You're on the list! We'll be in touch at <strong>${email}</strong>`;
+        }
+      }, 800);
+    });
+  });
 </script>
-<iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
