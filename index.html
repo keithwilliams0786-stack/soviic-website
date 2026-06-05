@@ -12,6 +12,16 @@
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@soviicapp" />
+  <!-- Canonical: ensures search engines use non-www version -->
+  <link rel="canonical" href="https://soviic.com" />
+  <script>
+    // www → non-www redirect (client-side fallback)
+    // Primary redirect should be a Cloudflare Redirect Rule,
+    // but this catches edge cases where that rule isn't firing.
+    if (window.location.hostname === 'www.soviic.com') {
+      window.location.replace('https://soviic.com' + window.location.pathname + window.location.search);
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -774,7 +784,7 @@
         </div>
       </div>
 
-      <p class="form-note">No spam. No selling your data. Just updates on the build.</p>
+      <p class="form-note">No spam. No credit card. By joining you agree to our <a href="/privacy-policy.html" style="color:var(--muted);text-decoration:underline;text-underline-offset:2px;">Privacy Policy</a>.</p>
 
       <div class="social-proof">
         <div class="proof-item">
@@ -1000,7 +1010,7 @@
           </form>
           <div class="success-msg" id="successMsg2"></div>
         </div>
-        <p class="form-note" style="position:relative;">No spam. No credit card. Just early access.</p>
+        <p class="form-note" style="position:relative;">No spam. No credit card. By joining you agree to our <a href="/privacy-policy.html" style="color:var(--muted);text-decoration:underline;text-underline-offset:2px;">Privacy Policy</a>.</p>
       </div>
     </div>
   </section>
@@ -1015,10 +1025,15 @@
         </div>
         <div class="footer-links">
           <a href="mailto:hello@soviic.com">hello@soviic.com</a>
-          <a href="#" style="color:var(--muted);font-size:0.78rem;pointer-events:none;">3245 Main St Ste 235-609, Frisco TX 75034</a>
           <a href="https://linkedin.com/company/soviic" target="_blank" rel="noopener">LinkedIn</a>
           <a href="https://x.com/soviicapp" target="_blank" rel="noopener">Twitter / X</a>
+          <a href="/privacy-policy.html">Privacy</a>
+          <a href="/terms-of-service.html">Terms</a>
+          <a href="/acceptable-use-policy.html">AUP</a>
         </div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:0.72rem;color:var(--muted);font-family:'DM Mono',monospace;">
+        3245 Main St Ste 235-609, Frisco TX 75034 &nbsp;·&nbsp; Veteran-Owned Business · SDVOSB Eligible
       </div>
     </div>
   </footer>
@@ -1047,60 +1062,55 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // ── Waitlist form submission ─────────────────────────────
-  // Submits silently to Mailchimp in background via JSONP
-  // then redirects to thank-you.html with email in URL
+  // Submits to Mailchimp via fetch (no-cors mode) then redirects.
+  // Using fetch instead of JSONP avoids Edge Enhanced Security Mode
+  // blocking dynamically injected third-party scripts.
+  // Because no-cors prevents reading the response body, we redirect
+  // immediately after the fetch fires — same reliable outcome across
+  // Chrome, Edge, Firefox, and Safari without any security prompts.
 
-  const MAILCHIMP_URL = 'https://soviic.us19.list-manage.com/subscribe/post-json?u=86789b176f8105c8c6960b59d&id=36f74ef069&f_id=007bb3e4f0';
+  const MAILCHIMP_URL = 'https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069&f_id=007bb3e4f0';
 
   function submitToMailchimp(email, formEl, msgEl) {
-    // Validate email
-    if (!email || !email.includes('@')) {
-      formEl.querySelector('input[type="email"]').focus();
+    // Basic email validation
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      const input = formEl.querySelector('input[type="email"]');
+      input.focus();
+      input.style.borderColor = 'rgba(239,68,68,0.6)';
+      setTimeout(() => input.style.borderColor = '', 2000);
       return;
     }
 
-    // Show loading state on button
+    // Show loading state
     const btn = formEl.querySelector('button');
     const originalText = btn.innerHTML;
-    btn.innerHTML = 'Joining...';
+    btn.innerHTML = 'Joining&hellip;';
     btn.disabled = true;
 
-    // Build JSONP callback name
-    const callbackName = 'mcCallback_' + Date.now();
+    // Build form body — Mailchimp requires application/x-www-form-urlencoded
+    const body = new URLSearchParams({
+      EMAIL: email,
+      // Honeypot field — bots fill this in, real users don't
+      ['b_86789b176f8105c8c6960b59d_36f74ef069']: ''
+    });
 
-    // Build URL
-    const url = MAILCHIMP_URL
-      + '&EMAIL=' + encodeURIComponent(email)
-      + '&c=' + callbackName;
-
-    // Create script tag for JSONP
-    const script = document.createElement('script');
-    script.src = url;
-
-    // Timeout fallback — if Mailchimp doesn't respond in 8 seconds
-    // still redirect (assume success to avoid blocking user)
-    const timeout = setTimeout(() => {
-      cleanup();
+    // Fire-and-forget fetch in no-cors mode.
+    // no-cors means the browser sends the request but won't expose
+    // the response — that's fine because we redirect unconditionally.
+    fetch(MAILCHIMP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: body
+    }).catch(() => {
+      // Network error — still redirect; Mailchimp may have received it
+    }).finally(() => {
       window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
-    }, 8000);
+    });
 
-    // JSONP callback
-    window[callbackName] = function(data) {
-      clearTimeout(timeout);
-      cleanup();
-      // Always redirect to thank-you — even on "already subscribed" 
-      // this is a good outcome for a waitlist
+    // Safety fallback: if fetch hangs for 6 seconds, redirect anyway
+    setTimeout(() => {
       window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
-    };
-
-    function cleanup() {
-      if (script.parentNode) script.parentNode.removeChild(script);
-      delete window[callbackName];
-      btn.innerHTML = originalText;
-      btn.disabled = false;
-    }
-
-    document.head.appendChild(script);
+    }, 6000);
   }
 
   ['waitlistForm', 'waitlistForm2'].forEach((formId) => {

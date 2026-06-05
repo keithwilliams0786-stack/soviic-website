@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceptable Use Policy — Soviic</title>
+  <meta name="description" content="Soviic Acceptable Use Policy — what you may and may not do with the Soviic platform." />
+  <link rel="canonical" href="https://soviic.com/acceptable-use-policy.html" />
+  <script>
+    if (window.location.hostname === 'www.soviic.com') {
+      window.location.replace('https://soviic.com' + window.location.pathname + window.location.search);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0B1929; --navy-mid: #0F2236; --navy-light: #162D45;
+      --cyan: #22D3EE; --cyan-subtle: rgba(34,211,238,0.07);
+      --white: #F0F8FF; --muted: #7CA3C0; --border: rgba(34,211,238,0.12);
+      --card-bg: rgba(15,34,54,0.7);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .bg-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px); background-size: 48px 48px; }
+    .bg-glow { position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 700px; height: 500px; background: radial-gradient(ellipse, rgba(34,211,238,0.08) 0%, transparent 70%); }
+    nav { padding: 20px 0; border-bottom: 1px solid var(--border); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100; background: rgba(11,25,41,0.9); }
+    .nav-inner { max-width: 860px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
+    .logo-text span { color: var(--cyan); }
+    .nav-back { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+    .nav-back:hover { color: var(--cyan); }
+    .page { position: relative; z-index: 1; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .doc-header { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
+    .doc-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--cyan); margin-bottom: 14px; display: block; }
+    .doc-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px; }
+    .doc-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); display: flex; gap: 20px; flex-wrap: wrap; }
+    .doc-body { padding: 48px 0 80px; }
+    .doc-body h2 { font-size: 1.1rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+    .doc-body h2:first-child { margin-top: 0; }
+    .doc-body h3 { font-size: 0.92rem; font-weight: 600; color: var(--cyan); margin: 24px 0 8px; font-family: 'DM Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; }
+    .doc-body p { font-size: 0.92rem; color: rgba(240,248,255,0.82); line-height: 1.8; margin-bottom: 14px; font-weight: 300; }
+    .doc-body ul, .doc-body ol { margin: 10px 0 16px 0; padding-left: 0; list-style: none; }
+    .doc-body li { font-size: 0.9rem; color: rgba(240,248,255,0.78); line-height: 1.75; padding: 4px 0 4px 20px; position: relative; font-weight: 300; }
+    .doc-body ul li::before { content: '→'; position: absolute; left: 0; color: var(--cyan); font-weight: 600; }
+    .doc-body ul.prohibited li::before { content: '✕'; color: rgba(239,68,68,0.8); }
+    .doc-body ol { counter-reset: item; }
+    .doc-body ol li { counter-increment: item; }
+    .doc-body ol li::before { content: counter(item) '.'; position: absolute; left: 0; color: var(--cyan); font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 500; }
+    .doc-body a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+    .doc-body a:hover { color: #67E8F9; }
+    .doc-body strong { color: var(--white); font-weight: 600; }
+    .callout { background: var(--cyan-subtle); border: 1px solid var(--border); border-radius: 12px; padding: 18px 22px; margin: 20px 0; }
+    .callout p { margin-bottom: 0; color: var(--white); }
+    .callout-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+    .callout.warning { border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.05); }
+    .callout.warning .callout-label { color: #FBD24C; }
+    .callout.danger { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.05); }
+    .callout.danger .callout-label { color: rgba(239,68,68,0.9); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+    .col-card { background: var(--cyan-subtle); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .col-card h4 { font-size: 0.78rem; font-weight: 700; color: var(--cyan); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .col-card.no h4 { color: rgba(239,68,68,0.85); }
+    .col-card ul { margin: 0; }
+    .col-card li { font-size: 0.82rem; padding: 3px 0 3px 18px; }
+    .col-card li::before { content: '✓'; color: var(--cyan); }
+    .col-card.no li::before { content: '✕'; color: rgba(239,68,68,0.8); }
+    footer { border-top: 1px solid var(--border); padding: 32px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-left { font-size: 0.78rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+    @media (max-width: 640px) { .doc-meta { flex-direction: column; gap: 6px; } .two-col { grid-template-columns: 1fr; } .footer-inner { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="9" r="4" fill="#22D3EE"/>
+          <circle cx="12" cy="16" r="3.5" fill="#22D3EE"/>
+          <circle cx="22" cy="22" r="3.5" fill="#22D3EE"/>
+          <circle cx="11" cy="29" r="4" fill="#22D3EE"/>
+          <path d="M24 9 Q14 10 12 16 Q10 22 22 22 Q32 22 11 29" stroke="#22D3EE" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">Sov<span>ii</span>c</span>
+      </a>
+      <a href="/" class="nav-back">← Back to soviic.com</a>
+    </div>
+  </nav>
+
+  <section class="doc-header">
+    <div class="container">
+      <span class="doc-label">Legal Document</span>
+      <h1 class="doc-title">Acceptable Use Policy</h1>
+      <div class="doc-meta">
+        <span>Effective Date: June 1, 2026</span>
+        <span>Last Updated: June 1, 2026</span>
+        <span>CyberSentinel Services LLC — Soviic</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="doc-body">
+    <div class="container">
+
+      <div class="callout">
+        <div class="callout-label">Purpose</div>
+        <p>Soviic is built for small businesses doing legitimate operational work. This policy defines clearly what that means and what it doesn't. It supplements our <a href="/terms-of-service.html">Terms of Service</a>.</p>
+      </div>
+
+      <h2>1. Scope</h2>
+      <p>This Acceptable Use Policy ("AUP") applies to all users of the Soviic platform, including the website (soviic.com), the application (app.soviic.com), APIs, integrations, and any related services provided by <strong>CyberSentinel Services LLC</strong> (DBA: Soviic). Use of the Service constitutes acceptance of this AUP.</p>
+
+      <h2>2. Permitted Uses</h2>
+      <p>Soviic is designed for legitimate small business workflow automation. Permitted uses include:</p>
+
+      <div class="two-col">
+        <div class="col-card">
+          <h4>✓ Permitted</h4>
+          <ul>
+            <li>Business process automation</li>
+            <li>Connecting approved third-party tools</li>
+            <li>Internal team notifications</li>
+            <li>Customer communication workflows</li>
+            <li>Scheduling and calendar automation</li>
+            <li>Invoice and payment workflows</li>
+            <li>Form and data capture automation</li>
+            <li>Employee onboarding processes</li>
+            <li>Project handoff automation</li>
+            <li>Operational task management</li>
+          </ul>
+        </div>
+        <div class="col-card no">
+          <h4>✕ Not Permitted</h4>
+          <ul>
+            <li>Spam or unsolicited messaging</li>
+            <li>Phishing or fraudulent workflows</li>
+            <li>Data harvesting without consent</li>
+            <li>Bypassing third-party rate limits</li>
+            <li>Illegal data processing</li>
+            <li>Reselling platform access</li>
+            <li>Competitive intelligence scraping</li>
+            <li>Credential stuffing attacks</li>
+            <li>Cryptocurrency mining</li>
+            <li>CSAM or harmful content</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>3. Prohibited Activities</h2>
+      <p>The following activities are strictly prohibited and will result in immediate account suspension:</p>
+
+      <h3>3.1 Illegal and Harmful Activities</h3>
+      <ul class="prohibited">
+        <li>Violating any applicable federal, state, local, or international law or regulation</li>
+        <li>Using Soviic to facilitate fraud, identity theft, financial crimes, or money laundering</li>
+        <li>Processing, storing, or transmitting child sexual abuse material (CSAM)</li>
+        <li>Using the platform to threaten, harass, or stalk any individual</li>
+        <li>Violating any third party's privacy, intellectual property, or other legal rights</li>
+      </ul>
+
+      <h3>3.2 Security Violations</h3>
+      <ul class="prohibited">
+        <li>Attempting unauthorized access to Soviic systems, databases, or other users' accounts</li>
+        <li>Conducting penetration testing, vulnerability scanning, or security research against Soviic infrastructure without written permission</li>
+        <li>Introducing malware, viruses, ransomware, or other malicious code through integrations or workflows</li>
+        <li>Attempting to circumvent authentication, access controls, or rate limiting</li>
+        <li>Exploiting or attempting to exploit any vulnerability in the platform</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">Responsible Disclosure</div>
+        <p>If you discover a security vulnerability in Soviic, please report it responsibly to <a href="mailto:security@soviic.com">security@soviic.com</a> rather than exploiting or disclosing it publicly. We take all security reports seriously and will respond within 72 hours.</p>
+      </div>
+
+      <h3>3.3 Abuse of Service Infrastructure</h3>
+      <ul class="prohibited">
+        <li>Using Soviic to send unsolicited bulk communications (spam) via any connected integration</li>
+        <li>Creating workflows that deliberately generate excessive API calls to degrade performance for other users</li>
+        <li>Using automation to bypass rate limits or quotas set by Soviic or any integrated third-party service</li>
+        <li>Running cryptocurrency mining operations or resource-intensive processes unrelated to workflow automation</li>
+        <li>Storing or processing data volumes that materially exceed your plan limits without upgrading</li>
+      </ul>
+
+      <h3>3.4 Misrepresentation and Fraud</h3>
+      <ul class="prohibited">
+        <li>Creating accounts with false identities or on behalf of others without authorization</li>
+        <li>Using Soviic to impersonate Soviic, CyberSentinel Services LLC, or any third party</li>
+        <li>Misrepresenting your intended use of the platform during registration or in support interactions</li>
+        <li>Creating multiple accounts to circumvent plan limits or enforcement actions</li>
+      </ul>
+
+      <h3>3.5 Integration Misuse</h3>
+      <ul class="prohibited">
+        <li>Using connected integrations (Gmail, Slack, etc.) in ways that violate those services' terms</li>
+        <li>Building workflows designed to harvest personal data from connected accounts without user consent</li>
+        <li>Using OAuth tokens obtained through Soviic for purposes outside the authorized workflow scope</li>
+        <li>Automating actions in third-party services that would violate their acceptable use policies</li>
+      </ul>
+
+      <h2>4. Data Handling Requirements</h2>
+      <p>Users who process personal data of others through Soviic must:</p>
+      <ul>
+        <li>Have a lawful basis for processing personal data under applicable privacy law</li>
+        <li>Obtain all necessary consents from individuals whose data flows through your workflows</li>
+        <li>Not use Soviic to process Special Categories of personal data (health, biometric, financial credentials, etc.) unless you have appropriate safeguards and legal authority</li>
+        <li>Comply with GDPR, CCPA, HIPAA, or other applicable data protection regulations relevant to your business and location</li>
+        <li>Notify Soviic if you believe a workflow may have inadvertently exposed personal data — contact <a href="mailto:security@soviic.com">security@soviic.com</a></li>
+      </ul>
+
+      <div class="callout warning">
+        <div class="callout-label">HIPAA Note</div>
+        <p>Soviic is not currently HIPAA-certified. If your workflows may involve Protected Health Information (PHI), do not process that data through Soviic until we have established a Business Associate Agreement (BAA). Contact <a href="mailto:hello@soviic.com">hello@soviic.com</a> to discuss.</p>
+      </div>
+
+      <h2>5. AI Feature Usage</h2>
+      <p>Soviic's AI-assisted workflow features are subject to additional requirements:</p>
+      <ul>
+        <li>Do not use AI features to generate content that violates this AUP or any applicable law</li>
+        <li>Do not attempt to manipulate, jailbreak, or extract training data from AI features</li>
+        <li>AI output must be reviewed by a human before being used to make decisions that affect others</li>
+        <li>Do not represent AI-generated content as your own original work when accuracy matters professionally</li>
+        <li>AI features are not a substitute for legal, financial, medical, or compliance professional advice</li>
+      </ul>
+
+      <h2>6. Reporting Violations</h2>
+      <p>If you become aware of activity that violates this AUP, please report it:</p>
+      <ul>
+        <li><strong>General violations:</strong> <a href="mailto:hello@soviic.com">hello@soviic.com</a></li>
+        <li><strong>Security incidents:</strong> <a href="mailto:security@soviic.com">security@soviic.com</a></li>
+        <li><strong>Privacy concerns:</strong> <a href="mailto:privacy@soviic.com">privacy@soviic.com</a></li>
+      </ul>
+      <p>We investigate all reports and will take appropriate action, which may include warning, suspending, or permanently terminating the offending account.</p>
+
+      <h2>7. Enforcement</h2>
+      <p>Violations of this AUP may result in:</p>
+      <ul>
+        <li>A warning and request to correct the violation</li>
+        <li>Temporary suspension of account access</li>
+        <li>Permanent termination of account without refund</li>
+        <li>Reporting to law enforcement where required or appropriate</li>
+        <li>Legal action to recover damages caused by the violation</li>
+      </ul>
+      <p>We reserve the right to determine, in our sole discretion, what constitutes a violation of this AUP. We aim to apply this policy consistently and fairly, and will communicate our reasoning when taking enforcement action against an account.</p>
+
+      <h2>8. Changes to This Policy</h2>
+      <p>We may update this AUP as the platform evolves. We will notify users of material changes via email at least 30 days before the change takes effect. Continued use of Soviic after the effective date constitutes acceptance of the updated AUP.</p>
+
+      <h2>9. Contact</h2>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:hello@soviic.com">hello@soviic.com</a></li>
+        <li><strong>Mail:</strong> CyberSentinel Services LLC (DBA: Soviic), 3245 Main St Ste 235-609, Frisco, TX 75034</li>
+      </ul>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">© 2026 CyberSentinel Services LLC. All rights reserved. Soviic™</div>
+        <div class="footer-links">
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/terms-of-service.html">Terms of Service</a>
+          <a href="/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="mailto:hello@soviic.com">hello@soviic.com</a>
+          <a href="/">← Home</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
