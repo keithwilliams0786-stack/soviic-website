@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Soviic</title>
+  <meta name="description" content="Soviic Privacy Policy — how we collect, use, and protect your information." />
+  <link rel="canonical" href="https://soviic.com/privacy-policy.html" />
+  <script>
+    if (window.location.hostname === 'www.soviic.com') {
+      window.location.replace('https://soviic.com' + window.location.pathname + window.location.search);
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:        #0B1929;
+      --navy-mid:    #0F2236;
+      --navy-light:  #162D45;
+      --cyan:        #22D3EE;
+      --cyan-dim:    #0EA5E9;
+      --cyan-subtle: rgba(34,211,238,0.07);
+      --white:       #F0F8FF;
+      --muted:       #7CA3C0;
+      --border:      rgba(34,211,238,0.12);
+      --card-bg:     rgba(15,34,54,0.7);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── BACKGROUND ─── */
+    .bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .bg-glow {
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(34,211,238,0.08) 0%, transparent 70%);
+    }
+
+    /* ── NAV ─── */
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(11,25,41,0.9);
+    }
+    .nav-inner {
+      max-width: 860px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .logo-text { font-size: 1.2rem; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
+    .logo-text span { color: var(--cyan); }
+    .nav-back {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      color: var(--muted); text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--cyan); }
+
+    /* ── LAYOUT ─── */
+    .page { position: relative; z-index: 1; }
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HEADER ─── */
+    .doc-header {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .doc-label {
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--cyan);
+      margin-bottom: 14px; display: block;
+    }
+    .doc-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px;
+    }
+    .doc-meta {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted);
+      display: flex; gap: 20px; flex-wrap: wrap;
+    }
+
+    /* ── CONTENT ─── */
+    .doc-body { padding: 48px 0 80px; }
+
+    .doc-body h2 {
+      font-size: 1.1rem; font-weight: 700; color: var(--white);
+      letter-spacing: -0.02em; margin: 40px 0 12px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .doc-body h2:first-child { margin-top: 0; }
+
+    .doc-body h3 {
+      font-size: 0.92rem; font-weight: 600; color: var(--cyan);
+      margin: 24px 0 8px; font-family: 'DM Mono', monospace;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    .doc-body p {
+      font-size: 0.92rem; color: rgba(240,248,255,0.82); line-height: 1.8;
+      margin-bottom: 14px; font-weight: 300;
+    }
+
+    .doc-body ul, .doc-body ol {
+      margin: 10px 0 16px 0; padding-left: 0; list-style: none;
+    }
+    .doc-body li {
+      font-size: 0.9rem; color: rgba(240,248,255,0.78); line-height: 1.75;
+      padding: 4px 0 4px 20px; position: relative; font-weight: 300;
+    }
+    .doc-body ul li::before {
+      content: '→'; position: absolute; left: 0; color: var(--cyan); font-weight: 600;
+    }
+    .doc-body ol { counter-reset: item; }
+    .doc-body ol li { counter-increment: item; }
+    .doc-body ol li::before {
+      content: counter(item) '.';
+      position: absolute; left: 0; color: var(--cyan);
+      font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 500;
+    }
+
+    .doc-body a { color: var(--cyan); text-decoration: underline; text-underline-offset: 3px; }
+    .doc-body a:hover { color: #67E8F9; }
+
+    .doc-body strong { color: var(--white); font-weight: 600; }
+
+    .callout {
+      background: var(--cyan-subtle);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+    .callout p { margin-bottom: 0; color: var(--white); }
+    .callout-label {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--cyan);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;
+    }
+
+    .section-divider { height: 1px; background: var(--border); margin: 8px 0; }
+
+    /* ── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-left { font-size: 0.78rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.78rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--cyan); }
+
+    @media (max-width: 640px) {
+      .doc-meta { flex-direction: column; gap: 6px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-layer">
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+</div>
+
+<div class="page">
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="9" r="4" fill="#22D3EE"/>
+          <circle cx="12" cy="16" r="3.5" fill="#22D3EE"/>
+          <circle cx="22" cy="22" r="3.5" fill="#22D3EE"/>
+          <circle cx="11" cy="29" r="4" fill="#22D3EE"/>
+          <path d="M24 9 Q14 10 12 16 Q10 22 22 22 Q32 22 11 29" stroke="#22D3EE" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+        <span class="logo-text">Sov<span>ii</span>c</span>
+      </a>
+      <a href="/" class="nav-back">← Back to soviic.com</a>
+    </div>
+  </nav>
+
+  <section class="doc-header">
+    <div class="container">
+      <span class="doc-label">Legal Document</span>
+      <h1 class="doc-title">Privacy Policy</h1>
+      <div class="doc-meta">
+        <span>Effective Date: June 1, 2026</span>
+        <span>Last Updated: June 1, 2026</span>
+        <span>CyberSentinel Services LLC — Soviic</span>
+      </div>
+    </div>
+  </section>
+
+  <main class="doc-body">
+    <div class="container">
+
+      <div class="callout">
+        <div class="callout-label">Summary</div>
+        <p>We collect only what we need to run Soviic, we don't sell your data, and we give you control over your information. This document explains the details.</p>
+      </div>
+
+      <h2>1. Who We Are</h2>
+      <p>Soviic is a workflow automation platform for small and medium-sized businesses, operated by <strong>CyberSentinel Services LLC</strong>, a Texas limited liability company ("Company," "we," "us," or "our").</p>
+      <ul>
+        <li><strong>Company:</strong> CyberSentinel Services LLC (DBA: Soviic)</li>
+        <li><strong>Address:</strong> 3245 Main St Ste 235-609, Frisco, TX 75034</li>
+        <li><strong>Email:</strong> <a href="mailto:privacy@soviic.com">privacy@soviic.com</a></li>
+        <li><strong>Website:</strong> <a href="https://soviic.com">soviic.com</a></li>
+      </ul>
+      <p>This Privacy Policy applies to the Soviic website (soviic.com), the Soviic application (app.soviic.com), and any related services we provide (collectively, the "Service").</p>
+
+      <h2>2. Information We Collect</h2>
+
+      <h3>2.1 Information You Provide Directly</h3>
+      <ul>
+        <li><strong>Waitlist / early access signups:</strong> Email address and optional first name</li>
+        <li><strong>Account registration:</strong> Name, business name, email address, and password</li>
+        <li><strong>Profile information:</strong> Industry, team size, business type</li>
+        <li><strong>Payment information:</strong> Processed by Stripe — we do not store full card numbers</li>
+        <li><strong>Communications:</strong> Emails, support tickets, and feedback you send us</li>
+      </ul>
+
+      <h3>2.2 Information Collected Automatically</h3>
+      <ul>
+        <li><strong>Usage data:</strong> Pages visited, features used, time spent, clicks</li>
+        <li><strong>Device and browser information:</strong> Browser type, operating system, screen resolution</li>
+        <li><strong>IP address:</strong> Used for fraud prevention and geographic analytics</li>
+        <li><strong>Cookies and similar technologies:</strong> Session management and analytics (see Section 7)</li>
+      </ul>
+
+      <h3>2.3 Information From Third-Party Integrations</h3>
+      <p>When you connect third-party services (Gmail, Slack, Stripe, Google Calendar, etc.) to Soviic, we receive the access tokens and data necessary to perform those integrations on your behalf. We access only what you explicitly authorize. We do not access, read, or store integration data beyond what is required to execute your configured workflows.</p>
+
+      <h2>3. How We Use Your Information</h2>
+      <ul>
+        <li>To provide, operate, and maintain the Soviic Service</li>
+        <li>To process transactions and send billing confirmations</li>
+        <li>To send product updates, security notices, and account notifications</li>
+        <li>To respond to customer support requests</li>
+        <li>To improve and develop new features based on usage patterns</li>
+        <li>To send marketing communications — only with your consent and only from Soviic</li>
+        <li>To detect, prevent, and investigate security incidents or fraud</li>
+        <li>To comply with legal obligations</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-label">Important</div>
+        <p><strong>We do not sell your personal information to third parties. We do not share your data with advertisers. We do not use your data to train AI models without your explicit consent.</strong></p>
+      </div>
+
+      <h2>4. How We Share Your Information</h2>
+      <p>We share your information only in the following limited circumstances:</p>
+
+      <h3>4.1 Service Providers (Subprocessors)</h3>
+      <p>We use trusted third-party providers to operate Soviic. These providers process data only on our behalf and under our instructions:</p>
+      <ul>
+        <li><strong>Supabase</strong> — Database and authentication (PostgreSQL)</li>
+        <li><strong>Vercel</strong> — Application hosting and deployment</li>
+        <li><strong>Stripe</strong> — Payment processing and billing</li>
+        <li><strong>Mailchimp (Intuit)</strong> — Waitlist and email communications</li>
+        <li><strong>Google Workspace</strong> — Business email operations</li>
+        <li><strong>Cloudflare</strong> — DNS, CDN, and DDoS protection</li>
+        <li><strong>Resend or SendGrid</strong> — Transactional email delivery</li>
+        <li><strong>PostHog</strong> — Product analytics and session recording</li>
+        <li><strong>Sentry</strong> — Error tracking and monitoring</li>
+      </ul>
+
+      <h3>4.2 Legal Requirements</h3>
+      <p>We may disclose your information if required by law, court order, or government authority, or when we believe disclosure is necessary to protect the rights, property, or safety of Soviic, our users, or the public.</p>
+
+      <h3>4.3 Business Transfers</h3>
+      <p>If Soviic or CyberSentinel Services LLC is acquired, merged, or undergoes a change of control, your information may be transferred as part of that transaction. We will notify affected users before any such transfer and provide options to delete your data if desired.</p>
+
+      <h2>5. Data Retention</h2>
+      <ul>
+        <li><strong>Active accounts:</strong> Retained for the duration of the account relationship</li>
+        <li><strong>Waitlist data:</strong> Retained until you unsubscribe or request deletion</li>
+        <li><strong>Workflow and integration data:</strong> Retained while your account is active and for 30 days after account deletion</li>
+        <li><strong>Billing records:</strong> Retained for 7 years as required by tax law</li>
+        <li><strong>Security and audit logs:</strong> Retained for 12 months</li>
+        <li><strong>Deleted account data:</strong> Purged within 30 days of deletion request, except where legal retention is required</li>
+      </ul>
+
+      <h2>6. Your Rights and Choices</h2>
+      <p>Depending on your location, you may have the following rights:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+        <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+        <li><strong>Deletion:</strong> Request deletion of your personal data (subject to legal retention requirements)</li>
+        <li><strong>Portability:</strong> Request your data in a machine-readable format</li>
+        <li><strong>Opt-out of marketing:</strong> Unsubscribe from marketing emails at any time using the link in any email we send</li>
+        <li><strong>Withdraw consent:</strong> Withdraw consent for optional data processing at any time</li>
+      </ul>
+      <p>To exercise any of these rights, email <a href="mailto:privacy@soviic.com">privacy@soviic.com</a>. We will respond within 30 days.</p>
+
+      <h2>7. Cookies and Tracking</h2>
+      <p>Soviic uses the following types of cookies and tracking technologies:</p>
+      <ul>
+        <li><strong>Essential cookies:</strong> Required for the Service to function (session management, authentication). Cannot be disabled.</li>
+        <li><strong>Analytics cookies:</strong> PostHog and Cloudflare Analytics collect anonymous usage data to help us improve the product. You may opt out via your browser settings.</li>
+        <li><strong>No advertising cookies:</strong> We do not use cookies for advertising or cross-site tracking.</li>
+      </ul>
+      <p>You can control cookies through your browser settings. Disabling essential cookies will prevent you from logging in to Soviic.</p>
+
+      <h2>8. Data Security</h2>
+      <p>Security is a core design principle of Soviic, informed by the founder's cybersecurity background. We implement the following safeguards:</p>
+      <ul>
+        <li>All data encrypted in transit using TLS 1.2 or higher</li>
+        <li>All data encrypted at rest using AES-256 (via Supabase)</li>
+        <li>Authentication via Supabase Auth with JWT tokens and secure session management</li>
+        <li>OAuth 2.0 for all third-party integration connections</li>
+        <li>API keys and integration credentials encrypted at rest and never exposed in client-side code</li>
+        <li>Row-level security (RLS) in the database — users access only their own data</li>
+        <li>Rate limiting on authentication endpoints to prevent brute-force attacks</li>
+        <li>HTTPS enforced on all endpoints</li>
+        <li>Audit logging for security-relevant actions</li>
+      </ul>
+      <p>No method of electronic transmission or storage is 100% secure. If you discover a security vulnerability, please report it responsibly to <a href="mailto:security@soviic.com">security@soviic.com</a>.</p>
+
+      <h2>9. Children's Privacy</h2>
+      <p>Soviic is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, contact us at <a href="mailto:privacy@soviic.com">privacy@soviic.com</a> and we will delete it promptly.</p>
+
+      <h2>10. International Data Transfers</h2>
+      <p>Soviic is operated in the United States. If you access the Service from outside the United States, your information will be transferred to and processed in the United States. By using the Service, you consent to this transfer. We ensure our service providers provide adequate data protection through standard contractual clauses or equivalent safeguards.</p>
+
+      <h2>11. California Privacy Rights (CCPA)</h2>
+      <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information we collect, the right to delete your personal information, and the right to opt out of the sale of personal information. <strong>We do not sell personal information.</strong> To exercise your California rights, contact <a href="mailto:privacy@soviic.com">privacy@soviic.com</a>.</p>
+
+      <h2>12. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we make material changes, we will update the "Last Updated" date at the top of this page and notify active users via email or in-app notification at least 30 days before the change takes effect. Continued use of the Service after the effective date constitutes acceptance of the updated policy.</p>
+
+      <h2>13. Contact Us</h2>
+      <p>If you have questions, concerns, or requests related to this Privacy Policy:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:privacy@soviic.com">privacy@soviic.com</a></li>
+        <li><strong>Mail:</strong> CyberSentinel Services LLC (DBA: Soviic)<br>3245 Main St Ste 235-609<br>Frisco, TX 75034</li>
+        <li><strong>General inquiries:</strong> <a href="mailto:hello@soviic.com">hello@soviic.com</a></li>
+      </ul>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">© 2026 CyberSentinel Services LLC. All rights reserved. Soviic™</div>
+        <div class="footer-links">
+          <a href="/privacy-policy.html">Privacy Policy</a>
+          <a href="/terms-of-service.html">Terms of Service</a>
+          <a href="/acceptable-use-policy.html">Acceptable Use</a>
+          <a href="mailto:hello@soviic.com">hello@soviic.com</a>
+          <a href="/">← Home</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
