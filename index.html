@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1061,14 +1062,10 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   // ── Waitlist form submission ─────────────────────────────
-  // Submits to Mailchimp via fetch (no-cors mode) then redirects.
-  // Using fetch instead of JSONP avoids Edge Enhanced Security Mode
-  // blocking dynamically injected third-party scripts.
-  // Because no-cors prevents reading the response body, we redirect
-  // immediately after the fetch fires — same reliable outcome across
-  // Chrome, Edge, Firefox, and Safari without any security prompts.
-
-  const MAILCHIMP_URL = 'https://soviic.us19.list-manage.com/subscribe/post?u=86789b176f8105c8c6960b59d&id=36f74ef069&f_id=007bb3e4f0';
+  // Posts to /subscribe — a Cloudflare Worker on the same origin.
+  // Same-origin means zero CORS issues on Chrome, Edge, Firefox,
+  // or Safari. The Worker forwards the request to Mailchimp
+  // server-side and returns JSON we can actually read.
 
   function submitToMailchimp(email, formEl, msgEl) {
     // Basic email validation
@@ -1086,30 +1083,26 @@
     btn.innerHTML = 'Joining&hellip;';
     btn.disabled = true;
 
-    // Build form body — Mailchimp requires application/x-www-form-urlencoded
-    const body = new URLSearchParams({
-      EMAIL: email,
-      // Honeypot field — bots fill this in, real users don't
-      ['b_86789b176f8105c8c6960b59d_36f74ef069']: ''
-    });
-
-    // Fire-and-forget fetch in no-cors mode.
-    // no-cors means the browser sends the request but won't expose
-    // the response — that's fine because we redirect unconditionally.
-    fetch(MAILCHIMP_URL, {
+    // POST to the Cloudflare Worker proxy (same origin — no CORS)
+    fetch('/subscribe', {
       method: 'POST',
-      mode: 'no-cors',
-      body: body
-    }).catch(() => {
-      // Network error — still redirect; Mailchimp may have received it
-    }).finally(() => {
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+    .then(res => res.json())
+    .then(data => {
+      // Redirect on success or "already subscribed" — both are good outcomes
+      window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
+    })
+    .catch(() => {
+      // Network error — redirect anyway; Worker may have forwarded the request
       window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
     });
 
-    // Safety fallback: if fetch hangs for 6 seconds, redirect anyway
+    // Safety fallback: if fetch hangs for 8 seconds, redirect anyway
     setTimeout(() => {
       window.location.href = 'thank-you.html?email=' + encodeURIComponent(email);
-    }, 6000);
+    }, 8000);
   }
 
   ['waitlistForm', 'waitlistForm2'].forEach((formId) => {
